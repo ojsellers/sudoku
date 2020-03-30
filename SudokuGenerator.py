@@ -10,10 +10,10 @@ class sudoku_generator():
         self.grid = grid
         self.solver = sudoku_solver(self.grid)
      
-    def rand_not_empty(self):
-        '''This function finds a random cell that isn't empty, so the 
+    '''This function finds a random cell that isn't empty, so the 
         backtracking method can be applied to reduce a full board down to a 
         puzzle of the desired difficulty'''
+    def rand_not_empty(self):
         condition = False
         while condition == False:
             ref = np.random.randint(0, 9, (2, 1))
