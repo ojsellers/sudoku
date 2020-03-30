@@ -23,6 +23,8 @@ class gui():
         self.white = (255, 255, 255)
         self.red = (255, 0, 0)
         self.green = (0, 255, 0)
+        self.hot_pink = (255,105,180)
+        self.blue = (0, 0, 255)
         self.fps = 10
         self.x = self.win_width - self.win_ext + 25
         self.y = 50
@@ -43,7 +45,7 @@ class gui():
                              (0, j), (self.win_width - self.win_ext, j))
             
     def draw_numbers(self):
-        font = pygame.font.SysFont('arial', 45, bold = True)
+        font = pygame.font.SysFont('calibri', 45, bold = True)
         for i in range(9):
             for j in range(9):
                 if self.grid[i][j] != 0:
@@ -60,9 +62,9 @@ class gui():
     '''A function to draw a simple rectangular pygame button of a desired size
     and location with text on it'''
     def draw_button(self, colour, text, x, y, w, h):
-        font = pygame.font.SysFont('arial', 28, bold = True)
+        font = pygame.font.SysFont('calibri', 25, bold = True)
         pygame.draw.rect(self.display, colour, (x, y, w, h))
-        textsurface = font.render(text, False, self.black)
+        textsurface = font.render(text, False, self.blue)
         word_width = textsurface.get_rect().width
         self.display.blit(textsurface, (x + (w - word_width) / 2, y + h / 3))
           
@@ -70,7 +72,7 @@ class gui():
     def draw_buttons(self):   
         names = ['New Easy', 'New Medium', 'New Hard', 'Solve It']
         for i in range(4):
-            self.draw_button(self.darker_grey, names[i], self.x, 
+            self.draw_button(self.hot_pink, names[i], self.x, 
                              self.y + i * 130, self.w, self.h)
             
     '''when a mouse click occurs on a button, this function is called and 
