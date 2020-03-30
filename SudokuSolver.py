@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Mon Mar 23 13:25:40 2020
-
 @author: Ollie
 """
 
