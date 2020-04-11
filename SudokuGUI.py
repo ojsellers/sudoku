@@ -90,6 +90,7 @@ class gui():
         if method == 's':
             new = sudoku_solver(self.grid)
             new.solve('single_soln')
+            new.update_grid() #added this line for ai
             self.grid = new.grid
             self.draw_numbers()
         self.draw_buttons()
