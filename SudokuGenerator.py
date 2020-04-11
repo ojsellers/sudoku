@@ -61,7 +61,7 @@ class sudoku_generator():
     def gen_reasonable_time(self, nums_to_remove, time_lim):
         for i in range(10):
             self.solver.grid = self.grid
-            self.solver.solve('builder')
+            self.solver.solve('single_soln')
             self.grid = self.solver.grid
             if self.generate(nums_to_remove, time.time(), time_lim):
                 return True
