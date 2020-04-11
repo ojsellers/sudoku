@@ -3,7 +3,7 @@
 """
 
 import time
-from SudokuSolver import *
+from SudokuSolverAI import *
 
 class sudoku_generator():
     def __init__(self, grid):
@@ -26,7 +26,7 @@ class sudoku_generator():
 
     '''A function to confirm that there is still a unique soln to the puzzle'''
     def check_solutions(self, num_solns):
-        new_solver = sudoku_solver(self.grid)
+        new_solver = sudoku_solverAI(self.grid)
         new_solver.solve('mult_solns')
         if new_solver.solutions == num_solns:
             return True
@@ -58,7 +58,7 @@ class sudoku_generator():
     to produce a puzzle by enforcing a limit to each attempt'''
     def gen_reasonable_time(self, nums_to_remove, time_lim):
         for i in range(10):
-            solver = sudoku_solver(self.grid)
+            solver = sudoku_solverAI(self.grid)
             solver.solve('single_soln')
             self.grid = solver.grid
             if self.generate(nums_to_remove, time.time(), time_lim):

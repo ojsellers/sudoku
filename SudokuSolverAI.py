@@ -5,7 +5,7 @@
 import numpy as np
 import copy
 
-class sudoku_solver():
+class sudoku_solverAI():
     def __init__(self, grid):
         self.grid = grid
         self.solutions = 0
@@ -87,6 +87,7 @@ class sudoku_solver():
     search, method input can be single solution or not but will be stopped at
     2 solutions for check when generating'''
     def solve(self, method):
+        print("using AI solver")
         if self.solutions >= 2:
             return True
         if self.variable_order():
