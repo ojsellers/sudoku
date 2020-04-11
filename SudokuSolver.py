@@ -38,7 +38,7 @@ class sudoku_solver():
                     False
           
     '''Implementing a recursive backtracking method to solve the sudoku puzzle,
-    generalised for use on single and multiple solution boards. The builder 
+    generalised for use on single and multiple solution boards. The single_soln 
     method finds a single solution and is also used to generate a full unique 
     board'''
     def solve(self, method):
@@ -49,7 +49,7 @@ class sudoku_solver():
             for n in range(9):
                 if self.possible(i, j, nums[n]):
                     self.grid[i][j] = nums[n]
-                    if method == 'builder':
+                    if method == 'single_soln':
                         if self.solve(method):
                             return True
                     else:
