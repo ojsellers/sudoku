@@ -9,12 +9,17 @@ class sudoku_solver():
         self.grid = grid
         self.solutions = 0
 
+    '''Function to ensure compatible with GUI due to change made for AI
+    solver'''
+    def update_grid(self):
+        pass
+
     def check_line(self, i, j, n):
         for x in range(0, 9):
             if self.grid[i][x] == n or self.grid[x][j] == n:
                 return False
         return True
-    
+
     def check_box(self, i , j, n):
         i0 = (i // 3) * 3
         j0 = (j // 3) * 3
@@ -23,12 +28,12 @@ class sudoku_solver():
                 if self.grid[i0 + x][j0 + y] == n:
                     return False
         return True
-    
+
     def possible(self, i, j, n):
         if self.check_box(i, j, n) and self.check_line(i, j, n):
             return True
         return False
-    
+
     def find_empty(self):
         for i in range(9):
             for j in range(9):
@@ -36,10 +41,10 @@ class sudoku_solver():
                     return i, j
                 else:
                     False
-          
+
     '''Implementing a recursive backtracking method to solve the sudoku puzzle,
-    generalised for use on single and multiple solution boards. The single_soln 
-    method finds a single solution and is also used to generate a full unique 
+    generalised for use on single and multiple solution boards. The single_soln
+    method finds a single solution and is also used to generate a full unique
     board'''
     def solve(self, method):
         if self.find_empty():
@@ -54,7 +59,7 @@ class sudoku_solver():
                             return True
                     else:
                         self.solve(method)
-                    self.grid[i][j] = 0 
+                    self.grid[i][j] = 0
             return False
         else:
             self.solutions += 1
