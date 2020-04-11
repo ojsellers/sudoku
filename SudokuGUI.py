@@ -89,7 +89,7 @@ class gui():
             self.draw_numbers()
         if method == 's':
             new = sudoku_solver(self.grid)
-            new.solve('builder')
+            new.solve('single_soln')
             self.grid = new.grid
             self.draw_numbers()
         self.draw_buttons()
