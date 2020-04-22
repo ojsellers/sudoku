@@ -4,6 +4,7 @@
 
 import numpy as np
 import copy
+import time
 
 class sudoku_solverAI():
     def __init__(self, grid):
@@ -25,44 +26,32 @@ class sudoku_solverAI():
                 else:
                     self.grid_vals.update({str([i, j]): [1, 2, 3, 4,
                                                             5, 6, 7, 8, 9]})
-                self.neighbrs.update({str([i, j]): self.neighbours(i, j)})
         return True
-
-    '''Returns array of indexes for positions in the same line as input i, j
-    position'''
-    def line(self, i, j, values):
-        for x in range(0, 9):
-            values.append([i, x]), values.append([x, j])
-        return values
-
-    '''Returns array of indexes for positions in the same local box as input
-    i, j position '''
-    def box(self, i, j, values):
-        for x in range(0, 3):
-            for y in range(0, 3):
-                values.append([(i // 3) * 3 + x, (j // 3) * 3 + y])
-        return values
 
     '''Returns combined array of in-box and in-line positions for input i, j
     position '''
-    def neighbours(self, i, j):
-        return np.unique([value for value in (self.line(i, j, []) +
-                            self.box(i, j, [])) if value != [i, j]], axis = 0)
+    def neighbours(self, i, j, values):
+        for x in range(0, 9):
+            values.append([i, x]), values.append([x, j])
+        for x in range(0, 3):
+            for y in range(0, 3):
+                if [(i // 3) * 3 + x, (j // 3) * 3 + y] not in values:
+                    values.append([(i // 3) * 3 + x, (j // 3) * 3 + y])
+        return np.array([value for value in values if value != [i, j]])
 
     '''Function takes a position and value input and removes this value from
     the positions neighbours'''
     def reduce_grid_vals(self, i, j, n):
-        for x in range(len(self.neighbrs[str([i, j])])):
-            current = self.grid_vals[str([self.neighbrs[str([i, j])][x,0],
-                                            self.neighbrs[str([i, j])][x,1]])]
+        neighbours = self.neighbours(i, j, [])
+        for x in range(len(neighbours)):
+            index = str(list([int(neighbours[x, 0]), int(neighbours[x, 1])]))
+            current = self.grid_vals[index]
             new = [value for value in current if value not in n]
             if len(new) == 0:
                 return False
-            self.grid_vals.update({str([self.neighbrs[str([i, j])][x,0],
-                                        self.neighbrs[str([i, j])][x,1]]): new})
+            self.grid_vals[index] = new
             if len(new) == 1 and len(current) == 2:
-                self.reduce_grid_vals(self.neighbrs[str([i, j])][x,0],
-                                        self.neighbrs[str([i, j])][x,1], new)
+                self.reduce_grid_vals(neighbours[x,0], neighbours[x,1], new)
         return True
 
     '''Function to input forced values through constraint propagation'''
@@ -87,9 +76,6 @@ class sudoku_solverAI():
     search, method input can be single solution or not but will be stopped at
     2 solutions for check when generating'''
     def solve(self, method):
-        print("using AI solver")
-        if self.solutions >= 2:
-            return True
         if self.variable_order():
             i = self.variable_order()
             nums = self.grid_vals[str(self.variable_order())]
