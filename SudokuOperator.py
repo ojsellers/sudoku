@@ -4,8 +4,11 @@
 
 from SudokuGUI import *
 
-''' Main function to run through program '''
+
 def main():
+    """
+    Main function to run through program 
+    """
     game = gui()
     pygame.init()
     game.setup()   
