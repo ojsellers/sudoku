@@ -104,13 +104,17 @@ class sudoku_solverAI():
         search, method input can be single solution or not but will be stopped at
         2 solutions for check when generating
         """
-        if self.variable_order():
-            i = self.variable_order()
+        i = self.variable_order()
+        
+        if i:        
             nums = self.grid_vals[str(self.variable_order())]
             np.random.shuffle(nums)
+
             for n in range(len(nums)):
+                
                 copy_grid_vals = copy.deepcopy(self.grid_vals)
                 self.grid_vals.update({str(i): [nums[n]]})
+                
                 if self.force_values():
                     if method == 'single_soln':
                         if self.solve(method):
@@ -119,7 +123,9 @@ class sudoku_solverAI():
                     else:
                         self.solve(method)
                 self.grid_vals = copy_grid_vals
+            
             return False
+        
         else:
             self.solutions += 1
             return True
